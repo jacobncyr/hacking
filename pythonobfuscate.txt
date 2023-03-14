@@ -1,0 +1,16 @@
+import base64
+
+def obfuscate_script(file_path):
+    with open(file_path, 'rb') as file:
+        script_bytes = file.read()
+    encoded_bytes = base64.b64encode(script_bytes)
+    with open(file_path, 'wb') as file:
+        file.write(encoded_bytes)
+
+def deobfuscate_and_execute(file_path):
+    with open(file_path, 'rb') as file:
+        encoded_bytes = file.read()
+    decoded_bytes = base64.b64decode(encoded_bytes)
+    with open(file_path, 'wb') as file:
+        file.write(decoded_bytes)
+    subprocess.call(['python', file_path])
